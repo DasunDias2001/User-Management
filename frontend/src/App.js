@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
+import Register from './pages/Register'; 
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -36,6 +37,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
+          <Route path="/register" element={<Register />} />
 
         </Routes>
       </Router>
