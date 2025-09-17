@@ -6,8 +6,6 @@ import theme from './theme/theme';
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
-import About from './pages/About';
-import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import UserList from './pages/UserList';
 import EditUserPage from './pages/EditUserPage';
@@ -44,26 +42,10 @@ function App() {
               }
             />
             <Route
-              path="/about"
-              element={
-                <ProtectedRoute>
-                  <About />
-                </ProtectedRoute>
-              }
-            />
-            <Route
               path="/userlist"
               element={
                 <ProtectedRoute>
                   <UserList />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
                 </ProtectedRoute>
               }
             />
