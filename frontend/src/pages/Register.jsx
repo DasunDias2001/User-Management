@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Box, Paper, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom'; // Add this import
+import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Box, Paper, Typography, Divider, Link } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -8,12 +8,12 @@ const Register = () => {
     email: '',
     password: '',
     gender: '',
-    hobby: '', // Backend eke thiyena field eka add karanna
-    skill_level: '', // Backend eke thiyena field eka add karanna
+    hobby: '',
+    skill_level: '',
     bio: '',
   });
 
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,25 +26,19 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Backend URL eka properly mention karanna
       const response = await fetch('http://localhost:5000/api/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
       const data = await response.json();
       if (response.ok) {
-        console.log('Registration successful:', data);
         alert('Registration successful!');
-        navigate('/login'); // Navigate to login page
+        navigate('/login');
       } else {
-        console.error('Registration failed:', data);
         alert('Registration failed: ' + data.message);
       }
     } catch (error) {
-      console.error('Error:', error);
       alert('Network error. Please check if backend is running.');
     }
   };
@@ -56,13 +50,17 @@ const Register = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: '#f5f6fa',
+        background: '#f0f2f5',
       }}
     >
-      <Paper elevation={3} sx={{ p: 4, maxWidth: 400, width: '100%' }}>
-        <Typography variant="h5" align="center" gutterBottom>
-          Register
+      <Paper elevation={6} sx={{ p: 5, maxWidth: 450, width: '100%', borderRadius: 3 }}>
+        <Typography variant="h4" align="center" gutterBottom>
+          Create Account
         </Typography>
+        <Typography variant="subtitle1" align="center" gutterBottom>
+          Join us and get started!
+        </Typography>
+
         <form onSubmit={handleSubmit}>
           <TextField
             label="Name"
@@ -93,21 +91,16 @@ const Register = () => {
             margin="normal"
             required
           />
+
           <FormControl component="fieldset" margin="normal" required sx={{ mt: 2 }}>
             <FormLabel component="legend">Gender</FormLabel>
-            <RadioGroup
-              row
-              name="gender"
-              value={form.gender}
-              onChange={handleChange}
-            >
+            <RadioGroup row name="gender" value={form.gender} onChange={handleChange}>
               <FormControlLabel value="male" control={<Radio />} label="Male" />
               <FormControlLabel value="female" control={<Radio />} label="Female" />
               <FormControlLabel value="other" control={<Radio />} label="Other" />
             </RadioGroup>
           </FormControl>
-          
-          {/* Backend eke thiyena fields add karanna */}
+
           <TextField
             label="Hobby"
             name="hobby"
@@ -124,7 +117,6 @@ const Register = () => {
             fullWidth
             margin="normal"
           />
-          
           <TextField
             label="Short Bio"
             name="bio"
@@ -135,10 +127,30 @@ const Register = () => {
             multiline
             rows={3}
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ mt: 3, mb: 2, py: 1.5 }}
+          >
             Register
           </Button>
         </form>
+
+        <Divider sx={{ mb: 2 }}>or</Divider>
+
+        <Typography variant="body2" align="center">
+          Already have an account?{' '}
+          <Link
+            component="button"
+            variant="body2"
+            onClick={() => navigate('/login')}
+          >
+            Sign In
+          </Link>
+        </Typography>
       </Paper>
     </Box>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, TextField, Button, Typography, Paper } from '@mui/material';
+import { Box, TextField, Button, Typography, Paper, Divider, Link } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
@@ -45,10 +45,14 @@ const Login = () => {
         backgroundColor: '#f5f5f5',
       }}
     >
-      <Paper elevation={6} sx={{ padding: 4, width: 400 }}>
+      <Paper elevation={8} sx={{ padding: 5, width: 400, borderRadius: 3 }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
-          Login
+          Welcome Back
         </Typography>
+        <Typography variant="subtitle1" align="center" gutterBottom>
+          Sign in to continue
+        </Typography>
+
         <form onSubmit={handleSubmit}>
           <TextField
             label="Email"
@@ -77,7 +81,7 @@ const Login = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ mt: 2, mb: 1 }}
+            sx={{ mt: 3, mb: 2, py: 1.5 }}
           >
             Sign In
           </Button>
@@ -87,9 +91,24 @@ const Login = () => {
           variant="text"
           color="secondary"
           fullWidth
+          onClick={() => alert('Forgot password logic goes here')}
+          sx={{ mb: 2 }}
         >
           Forgot Password?
         </Button>
+
+        <Divider sx={{ mb: 2 }}>or</Divider>
+
+        <Typography variant="body2" align="center">
+          Don’t have an account?{' '}
+          <Link
+            component="button"
+            variant="body2"
+            onClick={() => navigate('/register')}
+          >
+            Sign Up
+          </Link>
+        </Typography>
       </Paper>
     </Box>
   );
