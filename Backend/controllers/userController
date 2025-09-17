@@ -10,7 +10,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const registerUser = (req, res) => {
   const { name, email, password, gender, hobby, skill_level, bio } = req.body;
 
-  // Check if user already exists
   db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
     if (err) return res.status(500).json({ error: err.message });
     if (results.length > 0) return res.status(400).json({ message: 'Email already registered' });
@@ -52,6 +51,14 @@ const getAllUsers = (req, res) => {
     res.json(results);
   });
 };
+
+// Example controller
+app.get('/api/users', (req, res) => {
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
+});
 
 // Update user
 const updateUser = (req, res) => {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Radio, RadioGroup, FormControlLabel, FormLabel, FormControl, Box, Paper, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; // Add this import
 
 const Register = () => {
   const [form, setForm] = useState({
@@ -11,6 +12,8 @@ const Register = () => {
     skill_level: '', // Backend eke thiyena field eka add karanna
     bio: '',
   });
+
+  const navigate = useNavigate(); // Add this line
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,8 +38,7 @@ const Register = () => {
       if (response.ok) {
         console.log('Registration successful:', data);
         alert('Registration successful!');
-        // Navigate to login page
-        // window.location.href = '/login';
+        navigate('/login'); // Navigate to login page
       } else {
         console.error('Registration failed:', data);
         alert('Registration failed: ' + data.message);

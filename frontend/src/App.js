@@ -8,11 +8,17 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import About from './pages/About';
 import Dashboard from './pages/Dashboard';
-import Register from './pages/Register'; 
+import Register from './pages/Register';
+import UserList from './pages/UserList';
+import EditUserPage from './pages/EditUserPage';
+import DeleteUserPage from './pages/DeleteUserPage';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
-import AuthLayout from './layouts/AuthLayout'; // For Login/Register pages
+import AuthLayout from './layouts/AuthLayout';
+
+// Protected Route
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -21,23 +27,63 @@ function App() {
       <Router>
         <Routes>
 
-          {/* Public pages with main layout */}
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-          </Route>
-
-          {/* Auth pages with different layout */}
+          {/* Public routes */}
           <Route element={<AuthLayout />}>
             <Route path="/login" element={<Login />} />
-            {/* Add register, forgot password etc here */}
+            <Route path="/register" element={<Register />} />
           </Route>
 
-          {/* Protected/dashboard pages */}
+          {/* Protected routes */}
           <Route element={<MainLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/about"
+              element={
+                <ProtectedRoute>
+                  <About />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/userlist"
+              element={
+                <ProtectedRoute>
+                  <UserList />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/edit-user/:id"
+              element={
+                <ProtectedRoute>
+                  <EditUserPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/delete-user/:id"
+              element={
+                <ProtectedRoute>
+                  <DeleteUserPage />
+                </ProtectedRoute>
+              }
+            />
           </Route>
-          <Route path="/register" element={<Register />} />
 
         </Routes>
       </Router>
